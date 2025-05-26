@@ -1,8 +1,10 @@
 #include "include/queue.h"
 #include <stdio.h>
 
-#define MAX_QUEUE_SIZE 10
+#define MAX_QUEUE_SIZE 2
 
+
+#if 1
 int main() {
     // Inisialisasi queue
     Queue_t* myQueue = QUEUE_Create(MAX_QUEUE_SIZE);
@@ -37,9 +39,22 @@ int main() {
         printf("Dequeue: ID=%d, Nama=%s, Nilai=%.1f\n", 
                temp.id, temp.nama, temp.nilai);
     }
+
+    //Tampilkan ukuran queue
+    printf("Ukuran queue setelah cetak sebelumnya: %d\n", QUEUE_Size(myQueue));
+
+    if (!QUEUE_Enqueue(myQueue, data3)) {
+        printf("Gagal enqueue data3!\n");
+    }
+
+    while (QUEUE_Dequeue(myQueue, &temp)) {
+        printf("Dequeue: ID=%d, Nama=%s, Nilai=%.1f\n", 
+               temp.id, temp.nama, temp.nilai);
+    }
     
     // Bersihkan queue
     QUEUE_Clear(myQueue);
     
     return 0;
 }
+#endif
