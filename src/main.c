@@ -3,6 +3,7 @@
 #include <string.h>
 
 #define MAX_QUEUE_SIZE 10
+// #define QUEUE_PRINT_FUNC // Uncomment this line to enable print function
 
 typedef struct {
     uint16_t id;
@@ -28,7 +29,12 @@ int main() {
     QueueConfig_t config = {
         .data_size = sizeof(MyData_t),
         .copy_func = MyData_Copy,
+
+#if defined(QUEUE_PRINT_FUNC)
         .print_func = MyData_Print
+#else
+        .print_func = NULL
+#endif
     };
     
     Queue_t* myQueue = QUEUE_Create(&config, MAX_QUEUE_SIZE);
@@ -57,6 +63,9 @@ int main() {
             print_func(&temp);
         } else {
             printf("Dequeued item (no print function)\n");
+
+            printf("ID: %d, Nama: %s, Nilai: %.1f\n", temp.id, temp.nama, temp.nilai);
+
         }
     }
     
